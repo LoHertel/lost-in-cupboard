@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+grpcio = "==1.42.0"
+gunicorn = "*"
+pillow = "*"
+tensorflow-protobuf = "==2.7.0"
+tensorflow-serving-api = "==2.7.0"
+requests = "*"
+
+[dev-packages]
+ipykernel = "*"
+
+[requires]
+python_version = "3.9"

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kitchenware
+spec:
+  type: LoadBalancer
+  selector:
+    app: kitchenware
+  ports:
+  - port: 80
+    targetPort: 9696

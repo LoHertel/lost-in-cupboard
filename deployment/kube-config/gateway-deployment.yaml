@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kitchenware
+spec:
+  selector:
+    matchLabels:
+      app: kitchenware
+  template:
+    metadata:
+      labels:
+        app: kitchenware
+    spec:
+      containers:
+      - name: kitchenware
+        image: kitchenware-gateway:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 9696
+        env:
+          - name: TF_SERVING_HOST
+            value: tf-serving-kitchenware-model.default.svc.cluster.local:8500
