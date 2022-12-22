@@ -7,29 +7,8 @@ The aim of this project is to classify pictures of household items into six cate
 A pretrained CNN based on the EfficientNet V2 architecture and pretrained weights from Imagenet is used for transfer learning. Image augmentation is applied to create variations of the trainable dataset and increase generalizability. 
 
 The used architecture is shown in the graph below:
-```mermaid
-graph LR
+![Plot of the used CNN architecture](images/model-architecture.png "Model Architecture")
 
-    input(fa:fa-image Input 150 x 150)
-
-    subgraph conv [Convolutional Layers]
-        eff(fa:fa-layer-group EfficientNetV2L) 
-    end
-
-    flatten(fa:fa-table-cells GlobalMaxPooling2D)
-
-    subgraph dense [Dense Layers]
-        d1(fa:fa-share-nodes Dense 64) 
-        bn(fa:fa-scale-balanced BatchNormalization) 
-        do(fa:fa-filter Dropout 0.5) 
-    end
-
-    output(fa:fa-tags Output Dense 6)
-
-    input --> conv --> flatten --> dense --> output
-
-    d1 --> bn --> do
-```
 
 The final model is deployed as prediction service to Kubernetes.
 
@@ -48,9 +27,7 @@ Root folder:
 * [`01-data-understanding.ipynb`](01-data-understanding.ipynb):
   Analyse the content of the images. Characterize similarities and differences between the classes and infer reasonable data augmentation options.
 * [`02-model-training.ipynb`](02-model-training.ipynb):
-  Train various architectures and perform hyper-parameter tuning.
-* [`03-deployment.ipynb`](03-deployment.ipynb):
-  Step-by-step explanation for deploying the model.
+  Train model and perform hyper-parameter tuning.
 * `train.py`: Train final CNN architecture.
 
 * `data/`: 
@@ -59,7 +36,7 @@ Root folder:
 * `models/`: Folder for trained models. 
     * `train_history.csv`: Logging file for the performed training cycles.
 * `deployment/`: Folder contains all configurations for the deplyoment.
-    * [`README.md`](deployment/README.md): Instructions for the deployment.
+    * [`README.md`](deployment/README.md): Step-by-step explanation for deploying the model.
 * `src/`:  
     * `generate_dataset_preview.py`: Script which generates the cover image for this repository.
     * `kitchenware_helper.py`: Helper functions for training on and analysing the data.
@@ -77,6 +54,16 @@ You could use Saturn Cloud to train the model on a GPU for free.
 * Kaggle account for downloading the data. If not [signup here](https://www.kaggle.com/account/login?phase=startRegisterTab).
 
 [![Run in Saturn Cloud](https://saturncloud.io/images/embed/run-in-saturn-cloud.svg "Run in Saturn Cloud")](https://app.community.saturnenterprise.io/dash/resources?recipeUrl=https://raw.githubusercontent.com/LoHertel/lost-in-cupboard/main/saturn-cloud-recipe.json)
+
+After having clicked on the button above follow these steps:
+1. Create jupyter workspace
+2. Open tab "Secrets"
+3. Edit the kaggle.json secret
+4. Click "new secret"
+5. Enter "kaggle.json" as name
+6. Paste content from kaggle.json API file as value (see below how to download this API file)
+7. Click "Save"
+8. Go to tab "Overview" and clock "Start" to start the Jupyter Server
 
 ### Training Locally
 
@@ -141,6 +128,15 @@ unzip kitchenware-classification.zip -d data > /dev/null
 rm kitchenware-classification.zip
 ```
 
+**Perform training**
+
+1. Read / run [data understanding notebook](01-data-understanding.ipynb)
+2. Read / run [training notebook](02-model-training.ipynb)
+3. Execute training of final model after hyperparameter tuning in notebook above: 
+```bash
+python train.py 10
+```
+> **Note:** `10` is the number of epochs, that the script should train. The number can be changed in the bash command above.
 
 ### Deployment
 
