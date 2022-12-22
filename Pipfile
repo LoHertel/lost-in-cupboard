@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pillow = ">=9.2.0"
+
+[dev-packages]
+ipykernel = ">=6.17.0"
+kaggle = ">=1.5.12"
+matplotlib = ">=3.5.3"
+pandas = ">=1.5.1"
+tensorflow = ">=2.10.1" 
+
+[requires]
+python_version = "3.9"
