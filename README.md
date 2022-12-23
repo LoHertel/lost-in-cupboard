@@ -130,17 +130,17 @@ rm kitchenware-classification.zip
 
 **Perform training**
 
-1. Read / run [data understanding notebook](01-data-understanding.ipynb)
-2. Read / run [training notebook](02-model-training.ipynb)
-3. Execute training of final model after hyperparameter tuning in notebook above: 
+1. Read [data understanding notebook](01-data-understanding.ipynb)
+2. Read [training notebook](02-model-training.ipynb)
+3. Execute training of final model: 
 ```bash
 python train.py 10
 ```
-> **Note:** `10` is the number of epochs, that the script should train. The number can be changed in the bash command above.
+> **Note:** `10` is the number of epochs, that the training should run. The number can be changed in the bash command above.
 
 ### Deployment
 
-To deploy the prediction service to a Kubernetes cluster, please follow the [deployment instructions here](deployment/README.md).
+To deploy the prediction service to a Kubernetes cluster (cloud / local), please follow the [deployment instructions here](deployment/README.md).
 
 
 

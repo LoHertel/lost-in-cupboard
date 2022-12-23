@@ -12,10 +12,20 @@ Prerequisites:
 
 Keras saves the trained models in HDF5 format. We need to convert the model to the [SavedModel format](https://www.tensorflow.org/guide/saved_model#the_savedmodel_format_on_disk) for using it in Tensorflow Serve.
 
+If you haven't trained a model yourself, you could download the pretrained final model from [02-model-training.ipynb](../02-model-training.ipynb) with this bash command:
+```bash
+cd .. # switch to root folder of this project, if not there already
+fileid="1VjnVxRqKFT2CsDAIVrC7jlVKpPu34rPw"
+filename="model_final.h5"
+curl -c ./cookie -s -L "https://drive.google.com/uc?export=download&id=${fileid}" > /dev/null
+curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print $NF}' ./cookie`&id=${fileid}" -o "models/${filename}"
+```
+
 Run the script for exporting a model:
 
 ```bash
-python save_model.py ../models/efficientnetv2l_v1_13_0.9442.h5 kitchenware-final-model
+cd deployment
+python save_model.py ../models/model_final.h5 kitchenware-final-model
 ```
 
 > **Note:** Use `cd deployment` to switch to the *deployment* folder to run this script successfully.
@@ -87,7 +97,11 @@ kind load docker-image kitchenware-gateway:1.0 --name kind-cluster
 
 ## For remote deployment: Upload container
 
+Some Kubernetes services are among others AWS EKS, GCP GKE, and Azure AKS.
+
 Upload the built containers `kitchenware-tf-serving:1.0` and `kitchenware-gateway:1.0` to the container registry, that your cluster is using.
+
+Replace the image names in the Kubernetes yaml files in this folder: `kube-config/` with the names from the container registry.
 
 
 ## Deploy service to cluster
