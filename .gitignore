@@ -1,4 +1,14 @@
+# data
 data/images/
+*.csv
+!data/test_labeled.csv
+!models/train_history.csv
+
+#models
+models/
+
+# curl cookie
 cookie
 
+# python
 __pycache__/
