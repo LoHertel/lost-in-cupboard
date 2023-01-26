@@ -44,8 +44,8 @@ Root folder:
 
 ## Getting Started
 
-### Training
-Training the model on a GPU is significatnly faster.
+### Setup on Saturn Cloud
+Training the model on a GPU is significantly faster.
 
 You could use Saturn Cloud to train the model on a GPU for free.
 
@@ -63,9 +63,9 @@ After having clicked on the button above follow these steps:
 5. Enter "kaggle.json" as name
 6. Paste content from kaggle.json API file as value (see below how to download this API file)
 7. Click "Save"
-8. Go to tab "Overview" and clock "Start" to start the Jupyter Server
+8. Go to tab "Overview" and click "Start" to start the Jupyter Server
 
-### Training Locally
+### Setup Locally
 
 > **Note**: These instructions are focused on unixoid shells. Please use either Unix, macOS or WSL on Windows.
 
@@ -116,6 +116,8 @@ mkdir -p ~/.kaggle/
 cp /mnt/c/Users/<your Windows user>/Downloads/kaggle.json -t ~/.kaggle/ 
 chmod 600 ~/.kaggle/kaggle.json
 ```
+
+### Training
 
 **Download Data**
 

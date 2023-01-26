@@ -10,9 +10,9 @@ Prerequisites:
 
 ## Save Final Model
 
-Keras saves the trained models in HDF5 format. We need to convert the model to the [SavedModel format](https://www.tensorflow.org/guide/saved_model#the_savedmodel_format_on_disk) for using it in Tensorflow Serve.
+Keras saves the trained models in HDF5 format. We need to convert the model to the [SavedModel format](https://www.tensorflow.org/guide/saved_model#the_savedmodel_format_on_disk) for using it in Tensorflow Serving.
 
-If you haven't trained a model yourself, you could download the pretrained final model from [02-model-training.ipynb](../02-model-training.ipynb) with this bash command:
+If you haven't trained a model yourself, you could download the final model from [02-model-training.ipynb](../02-model-training.ipynb) with this bash command:
 ```bash
 cd .. # switch to root folder of this project, if not there already
 fileid="1VjnVxRqKFT2CsDAIVrC7jlVKpPu34rPw"
@@ -33,7 +33,7 @@ python save_model.py ../models/model_final.h5 kitchenware-final-model
 
 ## Get Model Signature
 
-Inside the model signature are the layer names for input and output defined. When we use tesorflow-serving for serving the model, we need to use the correct names of the layers.
+Inside the model signature are the layer names for input and output defined. When we use Tesorflow Serving for serving the model, we need to use the correct names of the layers.
 
 Run the following CLI command to print the model signature definition:
 
@@ -57,7 +57,7 @@ The given SavedModel SignatureDef contains the following output(s):
 Method name is: tensorflow/serving/predict
 ```
 
-From the output above we see, that the model's input name is `input_4` and the model's ouput name is `dense_3`. The input is of shape `(-1, 150, 150, 3)` and the ouput `(-1, 6)`. The `-1` stands for the number of predictions, which are fed to the model at the same time.
+From the output above we see, that the model's input name is `input_4` and the model's ouput name is `dense_3`. The input is of shape `(-1, 150, 150, 3)` and the ouput `(-1, 6)`. The `-1` indicates that any number of images could be fed to the model on the same request.
 
 The input and output name have to be added to the python file `gateway.py`.
 You could run the following command in bash to add the INPUT_NAME and OUTPUT_NAME in the python file:
@@ -69,7 +69,7 @@ sed -i "s/^\(OUTPUT_NAME = \).*$/\1'$OUTPUT'/gm" gateway.py
 ```
 
 
-## Build Tensorflow Serving Container and for the gateway
+## Build Containers for Tensorflow Serving and Flask API Gateway
 
 Build the docker container for tensorflow serving:
 ```bash
@@ -99,9 +99,9 @@ kind load docker-image kitchenware-gateway:1.0 --name kind-cluster
 
 Some Kubernetes services are among others AWS EKS, GCP GKE, and Azure AKS.
 
-Upload the built containers `kitchenware-tf-serving:1.0` and `kitchenware-gateway:1.0` to the container registry, that your cluster is using.
+Upload the two images `kitchenware-tf-serving:1.0` and `kitchenware-gateway:1.0` to the container registry, that your cluster is using.
 
-Replace the image names in the Kubernetes yaml files in this folder: `kube-config/` with the names from the container registry.
+Replace the image names in the Kubernetes yaml files in this folder: `kube-config/` with the correct names from the container registry.
 
 
 ## Deploy service to cluster
@@ -135,7 +135,7 @@ python test.py
 ```
 You will see the prediction output for the specified images.
 
-Close the second terminal window, switch back to the first terminal window and press `Ctrl+C` to stop the port forwarding.
+Close the second terminal window, switch back to the first terminal window and press `Ctrl + C` to stop the port forwarding.
 
 
 ## Remove deployment
