@@ -44,6 +44,8 @@ Root folder:
 
 ## Getting Started
 
+You could run the code either locally or on Saturn Cloud with a GPU.
+
 ### Setup on Saturn Cloud
 Training the model on a GPU is significantly faster.
 
@@ -82,11 +84,11 @@ pip list | grep pipenv
 
 *If the output is empty, follow this section, otherwise go to the next section for cloning the repository.*
 
-Install `pipenv` if you don't have it yet. This command can help you get started:
+Install `pipenv` if you don't have it yet. This command can help you getting started:
 ```bash
 pip install --user pipenv
 ```
-You could find more installation options for `pipenv` [here](https://pypi.org/project/pipenv/#installation).
+You could find more installation options for `pipenv` [here](https://pipenv.pypa.io/en/latest/installation.html).
 
 
 **Clone Repository**  

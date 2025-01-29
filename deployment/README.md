@@ -4,9 +4,10 @@ Prerequisites:
 * Have Docker installed. Try to run `docker -v` to verify.
 * Have kubectl installed. Try to run `kubectl version --client` to verify.
 * For local deployment: 
-    * Have Kind installed for running local Kubernetes clusters. Try to run `kind --version` to verify. [Installation instructions](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+    * Have Kind installed for running a local Kubernetes cluster. Try to run `kind --version` to verify. [Installation instructions](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 * For deployment to remote cluster: 
     * Make sure that kubectl is connected to the cluster.
+
 
 ## Save Final Model
 
@@ -36,7 +37,6 @@ python save_model.py ../models/model_final.h5 kitchenware-final-model
 Inside the model signature are the layer names for input and output defined. When we use Tesorflow Serving for serving the model, we need to use the correct names of the layers.
 
 Run the following CLI command to print the model signature definition:
-
 
 ```bash
 saved_model_cli show --dir kitchenware-final-model --tag_set serve --signature_def serving_default
@@ -95,6 +95,7 @@ kind load docker-image kitchenware-tf-serving:1.0 --name kind-cluster
 kind load docker-image kitchenware-gateway:1.0 --name kind-cluster
 ```
 
+
 ## For remote deployment: Upload container
 
 Some Kubernetes services are among others AWS EKS, GCP GKE, and Azure AKS.
@@ -122,6 +123,7 @@ kitchenware-7f99986545-mzdm9                    1/1     Running   0          7s
 tf-serving-kitchenware-model-58888bc949-rsc6q   1/1     Running   0          7s
 ```
 
+
 ## Test prediction service
 
 Forward port from localhost to Kubernetes cluster:
@@ -144,6 +146,7 @@ Remove deployment
 ```bash
 kubectl delete -f kube-config
 ```
+
 
 ## For local deployment: Remove Kind cluster
 

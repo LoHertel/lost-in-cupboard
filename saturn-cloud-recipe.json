@@ -27,7 +27,7 @@
       {
         "location": "/home/jovyan/.kaggle/kaggle.json",
         "type": "file",
-        "description": "paste the content of you kaggle.json file here",
+        "description": "paste the content of your kaggle.json file here",
         "name": "kaggle"
       }
     ],
